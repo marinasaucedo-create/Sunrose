@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "author": "Uri Shaked",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-aitewinrobot-esp32c3-supermini",
+      "id": "esp",
+      "top": -165.84,
+      "left": -24.73,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-74hc595",
+      "id": "sr1",
+      "top": -270.66,
+      "left": 178.1,
+      "rotate": 90,
+      "attrs": {}
+    },
+    { "type": "wokwi-7segment", "id": "sevseg1", "top": -273.42, "left": -263.72, "attrs": {} },
+    { "type": "wokwi-7segment", "id": "sevseg2", "top": -292.62, "left": -330.92, "attrs": {} },
+    { "type": "wokwi-7segment", "id": "sevseg3", "top": -292.62, "left": -42.92, "attrs": {} },
+    { "type": "wokwi-7segment", "id": "sevseg4", "top": -292.62, "left": 72.28, "attrs": {} },
+    { "type": "wokwi-74hc595", "id": "sr2", "top": -279.6, "left": -320.96, "attrs": {} },
+    { "type": "wokwi-74hc595", "id": "sr3", "top": -260.4, "left": -301.76, "attrs": {} },
+    { "type": "wokwi-74hc595", "id": "sr4", "top": -241.2, "left": -282.56, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": -76.6, "left": 115.2, "attrs": {} },
+    { "type": "board-bmp180", "id": "bmp1", "top": -42.56, "left": -9.34, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "sevseg4:COM.1", "esp:GND", "black", [ "h0", "v76.8" ] ],
+    [ "esp:5V", "sr1:VCC", "red", [ "v0", "h230.4", "v-134.4" ] ],
+    [ "sr1:MR", "esp:5V", "red", [ "h37.2", "v76.8" ] ],
+    [ "sevseg4:A", "sr1:Q0", "green", [ "v-18.36", "h144", "v28.8" ] ],
+    [ "sr1:Q1", "sevseg4:B", "green", [ "h0" ] ],
+    [ "sevseg4:C", "sr1:Q2", "green", [ "v9.6", "h28.8", "v-67.2" ] ],
+    [ "sevseg4:D", "sr1:Q3", "green", [ "v19.2", "h57.6", "v-67.2" ] ],
+    [ "sevseg4:E", "sr1:Q4", "green", [ "v28.8", "h76.8", "v-67.2" ] ],
+    [ "sevseg4:F", "sr1:Q5", "green", [ "v-27.96", "h76.8", "v67.2" ] ],
+    [ "sevseg4:G", "sr1:Q6", "green", [ "v-37.56", "h96", "v86.4" ] ],
+    [ "sr1:GND", "esp:GND", "black", [ "h0", "v86.4" ] ],
+    [ "sr1:OE", "esp:GND", "black", [ "h18", "v115.2" ] ],
+    [ "sr1:DS", "esp:4", "orange", [ "h27.6", "v144" ] ],
+    [ "sr1:SHCP", "esp:2", "gold", [ "h8.4", "v134.4" ] ],
+    [ "sr1:STCP", "esp:5", "green", [ "h46.8", "v67.2", "h-307.2", "v9.6" ] ]
+  ],
+  "dependencies": {}
+}
