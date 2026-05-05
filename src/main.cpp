@@ -1,18 +1,26 @@
-#include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_BMP085.h>
 
-// put function declarations here:
-int myFunction(int, int);
+Adafruit_BMP085 bmp;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(115200);
+  Wire.begin(4, 5); // SDA, SCL
+
+  if (!bmp.begin()) {
+    Serial.println("No se encontró el BMP180");
+    while (1);
+  }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  Serial.print("Temperatura: ");
+  Serial.print(bmp.readTemperature());
+  Serial.println(" °C");
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  Serial.print("Presión: ");
+  Serial.print(bmp.readPressure());
+  Serial.println(" Pa");
+
+  delay(2000);
 }
