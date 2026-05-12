@@ -1,5 +1,10 @@
+#include <Arduino.h>
 #include <WiFi.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+#include <ESPDash.h>
 #include "time.h"
+
 #define LATCH  7
 #define CLOCK  4
 #define DATA   6
@@ -18,6 +23,14 @@ const char* password = "";
 const char* ntpServer = "ar.pool.ntp.org";
 const long gmtOffset_sec = -10800; // GMT-3 para Argentina
 const int daylightOffset_sec = 0;
+
+// --- Web Server ---
+AsyncWebServer tablero (80);
+
+// --- Attach del ESP-DASH al server web (tablero) ---
+ESPDash dashboard (tablero);
+
+// --- Tarjetas ---
 
 // Mapa de segmentos (Cátodo Común)
 constexpr uint8_t Digitos [] = {
