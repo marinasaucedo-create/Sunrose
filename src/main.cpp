@@ -25,12 +25,29 @@ const long gmtOffset_sec = -10800; // GMT-3 para Argentina
 const int daylightOffset_sec = 0;
 
 // --- Web Server ---
-AsyncWebServer tablero (80);
+AsyncWebServer server (80);
 
 // --- Attach del ESP-DASH al server web (tablero) ---
-ESPDash dashboard (tablero);
+ESPDash dashboard (server);
 
-// --- Tarjetas ---
+// --- Tarjetas de estado (solo lectura) ---
+dash::GenericCard<dash::string> cardTime (dashboard, "Hora actual");
+dash::GenericCard<dash::string> cardStatus (dashboard, "Estado LEDs");
+dash::GenericCard<dash::string> cardRelayStatus (dashboard, "Estado relé");
+dash::GenericCard<dash::string> cardAlarmInfo (dashboard, "Proxima alarma");
+
+// --- Tarjetas interactivas ---
+dash::GenericCard<dash::string> cardLedEnable (dashboard, "LEDs Encendido");
+dash::SliderCard<int> cardLedR (dashboard, "LED Rojo", 0, 255, 1, "");
+
+dash::SliderCard<int> cardLedBright (dashboard, "LEDs Brillo", 0, 100, 1, "%");
+
+
+Tarjeta cardLedG (&dashboard, SLIDER_CARD, "LED Verde", "", 0, 255, 1);
+Tarjeta cardLedB (&dashboard, SLIDER_CARD, "LED Azul", "", 0, 255, 1);
+
+Tarjeta cardLedEffect (&dashboard, SLIDER_CARD, "Efecto (0=Sol 1=Respuesta 2=Arco 3=Persecución)", "", 0, 3, 1);
+
 
 // Mapa de segmentos (Cátodo Común)
 constexpr uint8_t Digitos [] = {
