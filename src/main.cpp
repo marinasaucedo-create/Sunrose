@@ -41,13 +41,24 @@ dash::GenericCard<dash::string> cardLedEnable (dashboard, "LEDs Encendido");
 dash::SliderCard<int> cardLedR (dashboard, "LED Rojo", 0, 255, 1, "");
 
 dash::SliderCard<int> cardLedBright (dashboard, "LEDs Brillo", 0, 100, 1, "%");
+dash::SliderCard<int> cardLedG (dashboard, "LED Verde", 0, 255, 1, "%");
+dash::SliderCard<int> cardLedB (dashboard, "LED Azul", 0, 255, 1, "%");
+dash::SliderCard<int> cardLedEffect (dashboard, "Efecto (0=Sol 1=Respuesta 2=Arco 3=Persecución)", 0, 3, 1, "");
 
+// --- Sección Relé ---
+dash::ToggleButtonCard cardRelay (dashboard, "Relé ON/OFF");
+ 
+// --- Sección Pantalla ---
+dash::ToggleButtonCard cardFormat24 (dashboard, "Formato 24h");
+dash::ToggleButtonCard cardNightMode (dashboard, "Modo Noche");
+dash::SliderCard<int> cardDispBright (dashboard, "Brillo Pantalla", 0, 100, 1, "%");
 
-Tarjeta cardLedG (&dashboard, SLIDER_CARD, "LED Verde", "", 0, 255, 1);
-Tarjeta cardLedB (&dashboard, SLIDER_CARD, "LED Azul", "", 0, 255, 1);
-
-Tarjeta cardLedEffect (&dashboard, SLIDER_CARD, "Efecto (0=Sol 1=Respuesta 2=Arco 3=Persecución)", "", 0, 3, 1);
-
+// --- Sección Alarmas (5 espacios)
+dash::SliderCard<int> cardAlarm1 (dashboard, "Alarma 1 — 07:00", 0, 24, 1, "%");
+dash::SliderCard<int> cardAlarm2 (dashboard, "Alarma 2 — 12:30", 0, 24, 1, "%");
+dash::SliderCard<int> cardAlarm3 (dashboard, "Alarma 3 — 13:30", 0, 24, 1, "%");
+dash::SliderCard<int> cardAlarm4 (dashboard, "Alarma 4 — 14:20", 0, 24, 1, "%");
+dash::SliderCard<int> cardAlarm5 (dashboard, "Alarma 5 — 15:30", 0, 24, 1, "%");
 
 // Mapa de segmentos (Cátodo Común)
 constexpr uint8_t Digitos [] = {
@@ -102,6 +113,11 @@ void setup() {
   Serial.print (" WiFi conectado, IP: ");
   Serial.println (WiFi.localIP());
 
+  // --- Funciones de Callback
+  cardTime.setValue("12:00");
+  cardTime.setSymbol("Simbolo");
+
+  server.begin();
   configTime (gmtOffset_sec, daylightOffset_sec, ntpServer);
 }
 
